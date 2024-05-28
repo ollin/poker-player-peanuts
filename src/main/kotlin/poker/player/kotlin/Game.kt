@@ -5,13 +5,19 @@ import org.json.JSONObject
 
 private val logger = KotlinLogging.logger {}
 
-private const val VERSION = "0.0.9 - pair higher"
+private const val VERSION = "0.0.10 - chen"
 
 class Game {
     fun betRequest(game_state: JSONObject): Int {
         logger.info { game_state }
         val tournament = fromJsonToTournament(game_state)
-        return if (isTwoPair(tournament) || highCard(tournament)) return 3000  else 6
+        val holeCards = holeCards(tournament)
+
+        if (ChensAlgorithm().cardsScore(holeCards.get(0), holeCards.get(1)) > 0.20) {
+            return 3000
+        } else {
+            return 6
+        }
     }
 
     fun highCard(tournament: Tournament): Boolean {
