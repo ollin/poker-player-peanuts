@@ -5,7 +5,7 @@ import org.json.JSONObject
 
 private val logger = KotlinLogging.logger {}
 
-private const val VERSION = "0.0.8 - drain small"
+private const val VERSION = "0.0.9 - pair higher"
 
 class Game {
     fun betRequest(game_state: JSONObject): Int {
@@ -22,7 +22,7 @@ class Game {
 
     private fun isTwoPair(tournament: Tournament): Boolean {
         val holeCards = holeCards(tournament)
-        return holeCards!!.get(0).rank ==  holeCards!!.get(1).rank
+        return holeCards!!.get(0).rank ==  holeCards!!.get(1).rank && holeCards!!.get(0).rankAsInt() > 6
     }
 
     private fun holeCards(tournament: Tournament): List<Card> {
