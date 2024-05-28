@@ -89,35 +89,36 @@ class Game {
 
 
 data class Tournament(
-    val tournament_id: String = "",
-    val game_id: String= "",
-    val round: Int = 0,
-    val bet_index: Int = 0,
-    val small_blind: Int = 0,
-    val current_buy_in: Int = 0,
-    val pot: Int = 0,
-    val minimum_raise: Int = 0,
-    val dealer: Int = 0,
-    val orbits: Int = 0,
-    val in_action: Int = 0,
-    val players: List<Player> = emptyList(),
-    val community_cards: List<Card> = emptyList()
+    var tournament_id: String = "",
+    var game_id: String= "",
+    var round: Int = 0,
+    var bet_index: Int = 0,
+    var small_blind: Int = 0,
+    var current_buy_in: Int = 0,
+    var pot: Int = 0,
+    var minimum_raise: Int = 0,
+    var dealer: Int = 0,
+    var orbits: Int = 0,
+    var in_action: Int = 0,
+    var players: List<Player> = mutableListOf(),
+    var community_cards: List<Card> = emptyList()
 )
 
 data class Player(
-    val id: Int,
-    val name: String,
-    val status: String,
-    val version: String,
-    val stack: Int,
-    val bet: Int,
-    val hole_cards: List<Card>?
+    var id: Int = 0,
+    var name: String = "",
+    var status: String = "",
+    var version: String = "",
+    var stack: Int = 0,
+    var bet: Int = 0,
+    var hole_cards: List<Card> = mutableListOf()
 )
 
 data class Card(
     val rank: String,
     val suit: String
 ) {
+
     fun rankAsInt(): Int {
         // convert card rank to an integer
         return when(rank.uppercase()){
@@ -138,5 +139,19 @@ data class Card(
             else -> 0
         }
 
+    }
+
+    companion object {
+        fun create(card: String): Card {
+            val rank = card.first()
+            val suite = when(card.get(1)){
+                    '♥' -> "hearts"
+                    '♦' -> "diamonds"
+                    '♠' -> "spades"
+                    else -> "clubs"
+
+            }
+            return Card(""+rank, suite)
+        }
     }
 }

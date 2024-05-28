@@ -1,14 +1,23 @@
 package poker.player.kotlin
 
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.shouldBe
 
 
 class GameTest : StringSpec({
 
-    "dada"{
-        val tournament = Tournament()
-        tournament.players.get(tournament.in_action)
-        tournament.players[tournament.in_action].hole_cards
-        Game().highCard(tournament)
+    "4 is not high card"{
+
+        val card1 = Card.create("4♥")
+        val card2 = Card.create("4♦")
+
+        val we = Player(
+            hole_cards = listOf(card1, card2)
+        )
+        val tournament = Tournament(
+            players = listOf(we),
+        )
+
+        Game().highCard(tournament) shouldBe false
     }
 })
