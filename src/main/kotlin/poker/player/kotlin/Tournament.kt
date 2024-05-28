@@ -19,4 +19,12 @@ data class Tournament(
     fun us(): Player {
         return players.get(in_action)
     }
+
+    fun rusyLadies(): Player {
+        return players.first { it.name == RUSTY_LADIES }
+    }
+
+    fun pokerProcrastinators() : Player {
+        return players.first { it.name == POKER_PRESTIDIGITATORS }
+    }
 }

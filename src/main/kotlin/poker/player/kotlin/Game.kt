@@ -5,9 +5,12 @@ import org.json.JSONObject
 
 private val logger = KotlinLogging.logger {}
 
-private const val VERSION = "0.0.25 - 500"
+private const val VERSION = "0.0.26 - refactor"
 
 const val MIN_CHEN = 9.00
+
+ const val RUSTY_LADIES = "Rusty Ladies"
+ const val POKER_PRESTIDIGITATORS = "Poker Prestidigitators"
 
 class Game {
     fun betRequest(game_state: JSONObject): Int {
@@ -29,7 +32,10 @@ class Game {
     }
 
     private fun isOnlyLars(tournament: Tournament): Boolean {
-        return tournament.players.first { p -> p.name == "Rusty Ladies" }.status == "folded"
+        return tournament.players.first { p -> p.name == RUSTY_LADIES }.status == "folded"
+    }
+    private fun isOnlyLadies(tournament: Tournament): Boolean {
+        return tournament.players.first { p -> p.name == POKER_PRESTIDIGITATORS }.status == "folded"
     }
 
     private fun startingRound(tournament: Tournament): Int {
