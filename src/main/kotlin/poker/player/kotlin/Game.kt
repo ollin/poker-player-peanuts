@@ -5,7 +5,7 @@ import org.json.JSONObject
 
 private val logger = KotlinLogging.logger {}
 
-private const val VERSION = "0.0.19 - in small"
+private const val VERSION = "0.0.20 - the bet"
 
 const val MIN_CHEN = 9.00
 
@@ -43,7 +43,7 @@ class Game {
     private fun inSmallBids(tournament: Tournament): Boolean {
         val otherPlayers = extractOtherPlayers(tournament)
 
-        return  !otherPlayers.any { p -> p.stack == 0 }
+        return  !otherPlayers.any { p -> p.stack < p.bet }
     }
 
     private fun extractOtherPlayers(tournament: Tournament): List<Player> {
