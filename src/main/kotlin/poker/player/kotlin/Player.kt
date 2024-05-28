@@ -4,13 +4,13 @@ import org.json.JSONObject
 
 class Player {
     fun betRequest(game_state: JSONObject): Int {
-        return 0
+        return 10000
     }
 
     fun showdown() {
     }
 
     fun version(): String {
-        return "Kotlin Player 0.0.1"
+        return "0.0.2 - all in"
     }
 }
