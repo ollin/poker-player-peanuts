@@ -38,5 +38,5 @@ application {
 }
 
 task stage {
-    dependsOn build
+    dependsOn assemble
 }

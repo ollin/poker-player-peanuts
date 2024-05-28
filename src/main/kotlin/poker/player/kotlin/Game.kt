@@ -5,7 +5,7 @@ import org.json.JSONObject
 
 private val logger = KotlinLogging.logger {}
 
-private const val VERSION = "0.0.14 - chen 5"
+private const val VERSION = "0.0.15 - chen 5 - assemble"
 
 class Game {
     fun betRequest(game_state: JSONObject): Int {
