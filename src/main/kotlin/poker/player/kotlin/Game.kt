@@ -5,7 +5,7 @@ import org.json.JSONObject
 
 private val logger = KotlinLogging.logger {}
 
-private const val VERSION = "0.0.20 - the bet"
+private const val VERSION = "0.0.21 - the start"
 
 const val MIN_CHEN = 9.00
 
@@ -13,6 +13,19 @@ class Game {
     fun betRequest(game_state: JSONObject): Int {
         logger.info { game_state }
         val tournament = fromJsonToTournament(game_state)
+        if (isStartingRound(tournament)) {
+            return startingRound(tournament)
+        }
+        else {
+            return 3000
+        }
+    }
+
+    private fun isStartingRound(tournament: Tournament): Boolean {
+        return tournament.community_cards.size == 0
+    }
+
+    private fun startingRound(tournament: Tournament): Int {
         val holeCards = holeCards(tournament)
 
         if (ChensAlgorithm().cardsScore(holeCards.get(0), holeCards.get(1)) >= MIN_CHEN) {
