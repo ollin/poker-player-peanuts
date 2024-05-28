@@ -5,7 +5,7 @@ import org.json.JSONObject
 
 private val logger = KotlinLogging.logger {}
 
-private const val VERSION = "0.0.22 - pair and group"
+private const val VERSION = "0.0.23 - hello Lars :)"
 
 const val MIN_CHEN = 9.00
 
@@ -25,7 +25,14 @@ class Game {
         return tournament.community_cards.size == 0
     }
 
+    private fun isOnlyLars(tournament: Tournament): Boolean {
+        return tournament.players.first { p -> p.name == "Rusty Ladies" }.status == "folded"
+    }
+
     private fun startingRound(tournament: Tournament): Int {
+        if (isOnlyLars(tournament)) {
+            return 3000
+        }
         val holeCards = holeCards(tournament)
 
         if (ChensAlgorithm().cardsScore(holeCards.get(0), holeCards.get(1)) >= MIN_CHEN) {
