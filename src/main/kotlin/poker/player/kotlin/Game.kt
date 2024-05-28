@@ -5,7 +5,7 @@ import org.json.JSONObject
 
 private val logger = KotlinLogging.logger {}
 
-private const val VERSION = "0.0.21 - the start"
+private const val VERSION = "0.0.22 - pair and group"
 
 const val MIN_CHEN = 9.00
 
@@ -17,7 +17,7 @@ class Game {
             return startingRound(tournament)
         }
         else {
-            return 3000
+            return withCommunityCards(tournament)
         }
     }
 
@@ -33,6 +33,32 @@ class Game {
         } else {
             return minBet(tournament)
         }
+    }
+
+    private fun withCommunityCards(tournament: Tournament): Int {
+        val allCards = tournament.community_cards.toMutableList()
+        allCards.addAll(ourCards(tournament))
+
+        if (hasPair(allCards) || has4Suited(allCards)) {
+            return 3000
+        } else {
+            return 0
+        }
+    }
+
+    private fun has4Suited(allCards: MutableList<Card>): Boolean {
+        return allCards.groupingBy { card -> card.suit }.eachCount().any {group -> group.value >= 4}
+    }
+
+    private fun hasPair(allCards: MutableList<Card>): Boolean {
+        // find pair
+        return allCards.any { card -> allCards.count { it.rank == card.rank } >= 2 }
+    }
+
+
+    private fun ourCards(tournament: Tournament): List<Card> {
+        return tournament.players.get(tournament.in_action).hole_cards
+
     }
 
     fun highCard(tournament: Tournament): Boolean {
