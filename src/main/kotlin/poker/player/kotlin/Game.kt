@@ -5,7 +5,7 @@ import org.json.JSONObject
 
 private val logger = KotlinLogging.logger {}
 
-private const val VERSION = "0.0.16 - chen 6"
+private const val VERSION = "0.0.17 - minBed"
 
 const val MIN_CHEN = 6.00
 
@@ -18,7 +18,7 @@ class Game {
         if (ChensAlgorithm().cardsScore(holeCards.get(0), holeCards.get(1)) >= MIN_CHEN) {
             return 3000
         } else {
-            return 6
+            return minBed(tournament)
         }
     }
 
@@ -30,7 +30,11 @@ class Game {
 
     private fun isTwoPair(tournament: Tournament): Boolean {
         val holeCards = holeCards(tournament)
-        return holeCards!!.get(0).rank ==  holeCards!!.get(1).rank && holeCards!!.get(0).rankAsInt() > 6
+        return holeCards!!.get(0).rank ==  holeCards!!.get(1).rank && holeCards!!.get(0).rankAsInt() > minBed(tournament)
+    }
+
+    private fun minBed(tournament: Tournament): Int {
+        return tournament.small_blind * 2 + 2
     }
 
     private fun holeCards(tournament: Tournament): List<Card> {
