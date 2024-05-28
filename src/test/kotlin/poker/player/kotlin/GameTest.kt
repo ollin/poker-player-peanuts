@@ -4,6 +4,7 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 
 
+
 class GameTest : StringSpec({
 
     "4 is not high card"{
@@ -23,6 +24,32 @@ class GameTest : StringSpec({
 
         Game().highCard(tournament) shouldBe true
     }
+
+//    "beat rusty ladies" {
+//        val smallBlind = 10
+//
+//        val card1 = Card.create("J♥")
+//        val card2 = Card.create("4♦")
+//        val we = Player(
+//            hole_cards = listOf(card1, card2)
+//        )
+//
+//        val card12 = Card.create("J♥")
+//        val card22 = Card.create("4♦")
+//        val rustyLadies = Player(
+//            hole_cards = listOf(card1, card2),
+//            name = "Rusty Ladies",
+//            bet =
+//
+//
+//        )
+//        val tournament12 = Tournament(
+//            players = listOf(we, rustyLadies),
+//            small_blind = smallBlind
+//        )
+//
+//        Game().highCard(tournament) shouldBe true
+//    }
 
 
 })

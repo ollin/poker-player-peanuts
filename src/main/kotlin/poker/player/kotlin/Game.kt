@@ -5,9 +5,9 @@ import org.json.JSONObject
 
 private val logger = KotlinLogging.logger {}
 
-private const val VERSION = "0.0.17 - minBed"
+private const val VERSION = "0.0.18 - special"
 
-const val MIN_CHEN = 6.00
+const val MIN_CHEN = 9.00
 
 class Game {
     fun betRequest(game_state: JSONObject): Int {
@@ -34,7 +34,7 @@ class Game {
     }
 
     private fun minBet(tournament: Tournament): Int {
-        return tournament.small_blind * 2 + 2
+        return 0
     }
 
     private fun holeCards(tournament: Tournament): List<Card> {
