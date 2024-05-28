@@ -24,6 +24,16 @@ class GameTest : StringSpec({
 
         Game().highCard(tournament) shouldBe true
     }
+    "straigth ace low"{
+        val potentialStraigth = listOf(
+            Card.create("2♥"),
+            Card.create("4♥"),
+            Card.create("3♥"),
+            Card.create("A♥"),
+            Card.create("5♥"),
+        )
+        Game().hasStraight(potentialStraigth) shouldBe true
+    }
 
 //    "beat rusty ladies" {
 //        val smallBlind = 10

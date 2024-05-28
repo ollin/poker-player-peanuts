@@ -58,11 +58,31 @@ class Game {
         val allCards = tournament.community_cards.toMutableList()
         allCards.addAll(ourCards(tournament))
 
-        if (hasPair(allCards) || has4Suited(allCards)) {
+        if (hasPair(allCards) || has4Suited(allCards) || hasStraight(allCards)) {
             return 3000
         } else {
             return 0
         }
+    }
+
+    fun hasStraight(allCards: List<Card>): Boolean {
+        val ranks = allCards.map { it.rankAsInt() }.sorted()
+
+        for (i in 0 until ranks.size - 4) {
+            if (ranks.subList(i, i + 5).zipWithNext().all { (a, b) -> b - a == 1 }) {
+                return true
+            }
+        }
+
+        // Check Ace-low (A,2,3,4,5) and Ace-high (10,J,Q,K,A) straights
+        val aceLowRanks = listOf(14,2,3,4,5)
+        val aceHighRanks = listOf(10,11,12,13,14)
+
+        if(ranks.containsAll(aceLowRanks) || ranks.containsAll(aceHighRanks)){
+            return true
+        }
+
+        return false
     }
 
     private fun has4Suited(allCards: MutableList<Card>): Boolean {
