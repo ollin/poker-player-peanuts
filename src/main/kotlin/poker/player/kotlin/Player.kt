@@ -5,23 +5,36 @@ import org.json.JSONObject
 
 private val logger = KotlinLogging.logger {}
 
-class Game {
-    private fun isTwoPair(tournament: Tournament): Boolean {
-        val holeCards = tournament.players.get(tournament.in_action).hole_cards
-        return holeCards!!.get(0).rank ==  holeCards!!.get(1).rank
-    }
+private const val VERSION = "0.0.7 - high card"
 
+class Game {
     fun betRequest(game_state: JSONObject): Int {
         logger.info { game_state }
         val tournament = fromJsonToTournament(game_state)
-        return if (isTwoPair(tournament)) return 3000  else 0
+        return if (isTwoPair(tournament) || highCard(tournament)) return 3000  else 0
+    }
+
+    private fun highCard(tournament: Tournament): Boolean {
+        val holeCards = holeCards(tournament)
+        return holeCards.get(0).rankAsInt() > 10 || holeCards.get(1).rankAsInt() > 10
+    }
+
+
+    private fun isTwoPair(tournament: Tournament): Boolean {
+        val holeCards = holeCards(tournament)
+        return holeCards!!.get(0).rank ==  holeCards!!.get(1).rank
+    }
+
+    private fun holeCards(tournament: Tournament): List<Card> {
+        val holeCards = tournament.players.get(tournament.in_action).hole_cards
+        return holeCards!!
     }
 
     fun showdown() {
     }
 
     fun version(): String {
-        return "0.0.6 - logging"
+        return VERSION
     }
 
     fun fromJsonToTournament(jsonObject: JSONObject): Tournament {
@@ -104,4 +117,26 @@ data class Player(
 data class Card(
     val rank: String,
     val suit: String
-)
+) {
+    fun rankAsInt(): Int {
+        // convert card rank to an integer
+        return when(rank.uppercase()){
+            "2" -> 2
+            "3" -> 3
+            "4" -> 4
+            "5" -> 5
+            "6" -> 6
+            "7" -> 7
+            "8" -> 8
+            "9" -> 9
+            "10" -> 10
+            "T" -> 10
+            "J" -> 11
+            "Q" -> 12
+            "K" -> 13
+            "A" -> 14
+            else -> 0
+        }
+
+    }
+}
