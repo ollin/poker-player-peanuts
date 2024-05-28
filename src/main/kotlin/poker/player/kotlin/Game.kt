@@ -18,7 +18,7 @@ class Game {
         if (ChensAlgorithm().cardsScore(holeCards.get(0), holeCards.get(1)) >= MIN_CHEN) {
             return 3000
         } else {
-            return minBed(tournament)
+            return minBet(tournament)
         }
     }
 
@@ -30,10 +30,10 @@ class Game {
 
     private fun isTwoPair(tournament: Tournament): Boolean {
         val holeCards = holeCards(tournament)
-        return holeCards!!.get(0).rank ==  holeCards!!.get(1).rank && holeCards!!.get(0).rankAsInt() > minBed(tournament)
+        return holeCards!!.get(0).rank ==  holeCards!!.get(1).rank && holeCards!!.get(0).rankAsInt() > minBet(tournament)
     }
 
-    private fun minBed(tournament: Tournament): Int {
+    private fun minBet(tournament: Tournament): Int {
         return tournament.small_blind * 2 + 2
     }
 
