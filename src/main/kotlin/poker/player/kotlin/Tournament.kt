@@ -14,4 +14,9 @@ data class Tournament(
     var in_action: Int = 0,
     var players: List<Player> = mutableListOf(),
     var community_cards: List<Card> = emptyList()
-)
+
+) {
+    fun us(): Player {
+        return players.get(in_action)
+    }
+}

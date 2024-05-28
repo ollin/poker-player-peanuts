@@ -5,7 +5,7 @@ import org.json.JSONObject
 
 private val logger = KotlinLogging.logger {}
 
-private const val VERSION = "0.0.23 - hello Lars :)"
+private const val VERSION = "0.0.24 - hello again Lars :)"
 
 const val MIN_CHEN = 9.00
 
@@ -14,6 +14,9 @@ class Game {
         logger.info { game_state }
         val tournament = fromJsonToTournament(game_state)
         if (isStartingRound(tournament)) {
+            if (isOnlyLars(tournament) && tournament.us().bet > 300) {
+                return 3000
+            }
             return startingRound(tournament)
         }
         else {
