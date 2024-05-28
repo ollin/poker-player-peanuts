@@ -9,6 +9,7 @@ class ChensAlgorithm {
             "K" -> 8.0
             "Q" -> 7.0
             "J" -> 6.0
+            "T" -> 5.0
             else -> rank.toDouble() / 2
         }
     }

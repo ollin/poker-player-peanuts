@@ -18,6 +18,12 @@ class GameTest : StringSpec({
         Game().highCard(tournament) shouldBe true
     }
 
+    "J is high card"{
+        val tournament = createStartingHand("J♥", "4♦")
+
+        Game().highCard(tournament) shouldBe true
+    }
+
 
 })
 
