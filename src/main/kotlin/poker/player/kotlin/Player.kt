@@ -3,16 +3,21 @@ package poker.player.kotlin
 import org.json.JSONObject
 
 class Game {
+    private fun isTwoPair(tournament: Tournament): Boolean {
+        val holeCards = tournament.players.get(tournament.in_action).hole_cards
+        return holeCards!!.get(0).rank ==  holeCards!!.get(1).rank
+    }
+
     fun betRequest(game_state: JSONObject): Int {
-        fromJsonToTournament(game_state)
-        return 3000
+        val tournament = fromJsonToTournament(game_state)
+        return if (isTwoPair(tournament)) return 3000  else 0
     }
 
     fun showdown() {
     }
 
     fun version(): String {
-        return "0.0.4 - parse"
+        return "0.0.5 - pair"
     }
 
     fun fromJsonToTournament(jsonObject: JSONObject): Tournament {
