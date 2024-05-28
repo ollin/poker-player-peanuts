@@ -1,6 +1,9 @@
 package poker.player.kotlin
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.json.JSONObject
+
+private val logger = KotlinLogging.logger {}
 
 class Game {
     private fun isTwoPair(tournament: Tournament): Boolean {
@@ -9,6 +12,7 @@ class Game {
     }
 
     fun betRequest(game_state: JSONObject): Int {
+        logger.info { game_state }
         val tournament = fromJsonToTournament(game_state)
         return if (isTwoPair(tournament)) return 3000  else 0
     }
@@ -17,7 +21,7 @@ class Game {
     }
 
     fun version(): String {
-        return "0.0.5 - pair"
+        return "0.0.6 - logging"
     }
 
     fun fromJsonToTournament(jsonObject: JSONObject): Tournament {
