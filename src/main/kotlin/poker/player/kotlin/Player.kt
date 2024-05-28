@@ -5,16 +5,16 @@ import org.json.JSONObject
 
 private val logger = KotlinLogging.logger {}
 
-private const val VERSION = "0.0.7 - high card"
+private const val VERSION = "0.0.8 - drain small"
 
 class Game {
     fun betRequest(game_state: JSONObject): Int {
         logger.info { game_state }
         val tournament = fromJsonToTournament(game_state)
-        return if (isTwoPair(tournament) || highCard(tournament)) return 3000  else 0
+        return if (isTwoPair(tournament) || highCard(tournament)) return 3000  else 6
     }
 
-    private fun highCard(tournament: Tournament): Boolean {
+    fun highCard(tournament: Tournament): Boolean {
         val holeCards = holeCards(tournament)
         return holeCards.get(0).rankAsInt() > 10 || holeCards.get(1).rankAsInt() > 10
     }
@@ -89,19 +89,19 @@ class Game {
 
 
 data class Tournament(
-    val tournament_id: String,
-    val game_id: String,
-    val round: Int,
-    val bet_index: Int,
-    val small_blind: Int,
-    val current_buy_in: Int,
-    val pot: Int,
-    val minimum_raise: Int,
-    val dealer: Int,
-    val orbits: Int,
-    val in_action: Int,
-    val players: List<Player>,
-    val community_cards: List<Card>
+    val tournament_id: String = "",
+    val game_id: String= "",
+    val round: Int = 0,
+    val bet_index: Int = 0,
+    val small_blind: Int = 0,
+    val current_buy_in: Int = 0,
+    val pot: Int = 0,
+    val minimum_raise: Int = 0,
+    val dealer: Int = 0,
+    val orbits: Int = 0,
+    val in_action: Int = 0,
+    val players: List<Player> = emptyList(),
+    val community_cards: List<Card> = emptyList()
 )
 
 data class Player(
