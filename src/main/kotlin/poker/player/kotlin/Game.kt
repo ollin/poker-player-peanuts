@@ -5,7 +5,7 @@ import org.json.JSONObject
 
 private val logger = KotlinLogging.logger {}
 
-private const val VERSION = "0.0.26 - refactor"
+private const val VERSION = "0.0.27 - straight"
 
 const val MIN_CHEN = 9.00
 
