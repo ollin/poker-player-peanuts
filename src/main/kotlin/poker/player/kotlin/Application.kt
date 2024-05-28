@@ -10,7 +10,7 @@ import io.ktor.server.routing.*
 import org.json.JSONObject
 
 fun main(args: Array<String>) {
-    val player = Player()
+    val player = Game()
     embeddedServer(Netty, getPort()) {
         routing {
             get("/") {
